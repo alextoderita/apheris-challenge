@@ -104,7 +104,7 @@ CMD ["uvicorn", "main:app", "--host=0.0.0.0", "--port=8080"]
     
 ### 2. IAM Role and ECR Access
 
-### Missing Parts
+### Missing Parts:
 
 **IAM Role Setup:**
 
@@ -168,7 +168,7 @@ CMD ["uvicorn", "main:app", "--host=0.0.0.0", "--port=8080"]
 
 ### 3. Service Availability and AZ Distribution
 
-### Potential Problems
+### Potential Problems:
 
 **AZ Dependency:**
 
