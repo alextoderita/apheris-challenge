@@ -60,6 +60,47 @@ CMD ["uvicorn", "--host=0.0.0.0", "--port=$PORT", "--workers=$UVICORN_WORKERS"]
 *   **User Context:** Switch to the unprivileged user as early as possible.
 
 *   **Entrypoint:** Avoid hardcoding `poetry`. Use a wrapper script or point to an entrypoint script.
+
+**Improved Dockerfile**
+```Dockerfile
+FROM python:3.9-slim
+
+# Set environment variables
+ENV POETRY_VERSION=1.1.13 \
+    HOME=/home/user \
+    PATH="${HOME}/.local/bin:${PATH}" \
+    PORT=8080
+
+# Create a non-root user
+RUN addgroup --system user && \
+    adduser --system --ingroup user --home $HOME user && \
+    apt-get update && apt-get install -y --no-install-recommends \
+        curl \
+        gcc \
+        libssl-dev \
+        libffi-dev \
+        python3-dev \
+        build-essential && \
+    curl -sSL https://install.python-poetry.org | python3 - && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Copy application and set permissions
+COPY --chown=user:user app/ /app/
+WORKDIR /app
+
+# Install dependencies using Poetry
+RUN poetry install --no-dev --no-root --no-interaction --no-ansi
+
+# Switch to non-root user
+USER user
+
+# Expose port
+EXPOSE $PORT
+
+# Entrypoint and default command
+ENTRYPOINT ["poetry", "run"]
+CMD ["uvicorn", "main:app", "--host=0.0.0.0", "--port=8080"]
+```
     
 ### Task 2: IAM Role and ECR Access
 
