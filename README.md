@@ -1,7 +1,7 @@
 Apheris Take Home Assignment for Deployment Engineer Positions
 --------------------------------------------------------------
 
-### 1\. Dockerfile Review and Best Practices
+### 1. Dockerfile Review and Best Practices
 
 **Dockerfile**
 
@@ -102,9 +102,9 @@ ENTRYPOINT ["poetry", "run"]
 CMD ["uvicorn", "main:app", "--host=0.0.0.0", "--port=8080"]
 ```
     
-### Task 2: IAM Role and ECR Access
+### 2. IAM Role and ECR Access
 
-## Missing Parts
+### Missing Parts
 
 **IAM Role Setup:**
 
@@ -166,9 +166,9 @@ CMD ["uvicorn", "main:app", "--host=0.0.0.0", "--port=8080"]
     $ docker push <account_id>.dkr.ecr.<region>.amazonaws.com/<repository_name>
     ```
 
-### 3\. Service Availability and AZ Distribution
+### 3. Service Availability and AZ Distribution
 
-## Potential Problems
+### Potential Problems
 
 **AZ Dependency:**
 
